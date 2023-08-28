@@ -1,10 +1,14 @@
 const getTemperaments = require ('../controllers/getTemperaments');
+const { Temperaments } = require ('../db')
 
 const getTemperamentsHandler = async (req,res)=>{
     try {
-        const temperaments = await getTemperaments();
-        res.status(200).json(temperaments)
+        
+        const temp = await getTemperaments();
+        res.status(200).json(temp)
+
     } catch (error) {
+        
         res.status(400).json({ error: error.message })
     }
 }

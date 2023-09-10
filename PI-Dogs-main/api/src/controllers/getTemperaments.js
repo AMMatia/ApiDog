@@ -1,34 +1,37 @@
-const axios = require ('axios');
-require ('dotenv').config()
-const { Temperaments } = require ('../db')
-const { API_KEY } = process.env
+const axios = require("axios");
+require("dotenv").config();
+const { Temperament } = require("../db");
+const { API_KEY } = process.env;
 
 const headers = {
-  "Content-Type":"application/json",
+  "Content-Type": "application/json",
   "x-api-key": API_KEY,
-}
+};
 
-const getTemperaments = async ()=>{
-    
-  const {data} = await axios.get(`https://api.thedogapi.com/v1/breeds`, { headers })
+const getTemperaments = async () => {
+  const { data } = await axios.get(`https://api.thedogapi.com/v1/breeds`, {
+    headers,
+  });
   const setTemps = new Set();
 
   data.forEach((dogs) => {
     if (dogs.temperament) {
-      const temperaments = dogs.temperament.split(',');
+      const temperaments = dogs.temperament.split(",");
       for (const temp of temperaments) {
         setTemps.add(temp.trim());
       }
     }
   });
-  
-  const promesas = Array.from(setTemps).map(async (temp) => {
-    await Temperaments.create({ name: temp });
+
+  Array.from(setTemps).map(async (temp) => {
+    const [temperament, created] = await Temperament.findOrCreate({
+      where: { name: temp },
+    });
   });
 
-  await Promise.all(promesas)
-  const temp = await Temperaments.findAll({attributes:['name']});
+
+  const temp = await Temperament.findAll();
   return temp;
-}
+};
 
 module.exports = getTemperaments;

@@ -1,17 +1,23 @@
-const {  Dogs, Temperaments } = require ('../db')
+const { Dog, Temperament } = require("../db");
 
+const postRace = async (
+  image,
+  name,
+  height,
+  weight,
+  life_span,
+  temperaments
+) => {
+  if (!(name && height && weight && life_span && image && temperaments))
+    return "Faltan datos";
 
-const postRace = async (image, name, height, weight, life_span,temperament) => {
+  const [dog, created] = await Dog.findOrCreate({
+    where: { image, name, height, weight, life_span },
+  });
 
-    if(!(name && height && weight && life_span && image && temperament)) return 'Faltan datos';
+  await dog.setTemperaments(temperaments);
 
-    const [dog, created] = await Dogs.findOrCreate({
-        where: { image, name, height, weight, life_span},
-    });
-
-    await dog.setTemperaments(temperament);
-
-    return dog;
-}
+  return dog;
+};
 
 module.exports = postRace;

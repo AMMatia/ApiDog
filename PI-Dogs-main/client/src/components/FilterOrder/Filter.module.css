@@ -1,0 +1,11 @@
+.lista{
+    display: flex;
+    justify-content:space-between;
+    position: relative;
+    flex-wrap: wrap;
+}
+.label {
+    display: block; /* Cada etiqueta en una línea nueva */
+    margin-bottom: 10px; /* Espacio entre etiquetas y campos de entrada */
+  }
+

@@ -1,0 +1,16 @@
+.cards{
+    border: 1px solid black; 
+    width: 20em;
+    height: 45em;
+    border-radius: 1em;
+}
+
+.cards img {
+    height: 20em;
+    width: 100%;
+    border-radius: 1em;
+}
+
+.cardsDetails{
+
+}

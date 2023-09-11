@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import validations from "./validations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Form.module.css";
-import { createDog, getDogs } from "../../redux/actions";
+import { createDog, getDogs, getTemps } from "../../redux/actions";
 
 export default function Form() {
   const [selectedTemps, setSelectedTemps] = useState([]);
@@ -11,32 +11,22 @@ export default function Form() {
   const [created, setCreated] = useState({
     image: "",
     name: "",
-    height: { min: "", max: "" },
-    weight: { min: "", max: "" },
-    life_span: { min: "", max: "" },
+    heightMin: "",
+    heightMax: "",
+    weightMin: "",
+    weightMax: "",
+    life_spanMin: "",
+    life_spanMax: "",
     temperaments: [],
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-  
-    // Divide el campo 'name' en un array para acceder a las subpropiedades
-    const nameParts = name.split('.');
-  
-    // Copia el estado 'created' actual
-    const updatedCreated = { ...created };
-  
-    if (nameParts.length === 2) {
-      // Actualiza los valores de 'min' o 'max' según corresponda
-      updatedCreated[nameParts[0]][nameParts[1]] = value;
-    } else {
-      // Actualiza 'name' o 'image'
-      updatedCreated[name] = value;
-    }
-  
-    // Actualiza el estado 'created' con los nuevos valores
-    setCreated(updatedCreated);
+
+    setCreated({ ...created, [name]: value });
+    setErrors(validations({ ...created, [name]: value }));
   };
 
   const handleOptionToggle = (temp) => {
@@ -50,73 +40,85 @@ export default function Form() {
 
   const onSubmit = (event) => {
     const transformedCreated = {
-      ...created,
-      height: `${created.height.min} - ${created.height.max}`,
-      weight: `${created.weight.min} - ${created.weight.max}`,
-      life_span: `${created.life_span.min} - ${created.life_span.max} years`,
+      image: created.image,
+      name: created.name,
+      height: `${created.heightMin} - ${created.heightMax}`,
+      weight: `${created.weightMin} - ${created.weightMax}`,
+      life_span: `${created.life_spanMin} - ${created.life_spanMax} years`,
+      temperaments: created.temperaments,
     };
     dispatch(createDog(transformedCreated));
-    dispatch(getDogs())
-    event.preventDefault();
+    dispatch(getDogs());
+    
   };
 
+  useEffect(() => {
+    dispatch(getTemps());
+  }, []);
+
   return (
-    <div className={styles.formContainer} >
+    <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={onSubmit}>
+
         <label>Imagen:</label>
         <input name="image" value={created.image} onChange={handleChange} />
+        {errors.image && <p>{errors.image}</p>}
 
         <label>Nombre:</label>
         <input name="name" value={created.name} onChange={handleChange} />
+        {errors.name && <p>{errors.name}</p>}
 
         <div className={styles.minMax}>
           <label>Altura mínima:</label>
           <input
-            name="height.min"
-            value={created.height.min}
+            name="heightMin"
+            value={created.heightMin}
             onChange={handleChange}
           />
 
           <label>Altura máxima:</label>
           <input
-            name="height.max"
-            value={created.height.max}
+            name="heightMax"
+            value={created.heightMax}
             onChange={handleChange}
           />
         </div>
+          {errors.height && <p>{errors.height}</p>}
 
         <div className={styles.minMax}>
           <label>Peso mínimo:</label>
           <input
-            name="weight.min"
-            value={created.weight.min}
+            name="weightMin"
+            value={created.weightMin}
             onChange={handleChange}
           />
 
           <label>Peso máximo:</label>
           <input
-            name="weight.max"
-            value={created.weight.max}
+            name="weightMax"
+            value={created.weightMax}
             onChange={handleChange}
           />
         </div>
+          {errors.weight && <p>{errors.weight}</p>}
 
         <div>
           <label>Años de vida mínimos:</label>
           <input
-            name="life_span.min"
-            value={created.life_span.min}
+            name="life_spanMin"
+            value={created.life_spanMin}
             onChange={handleChange}
           />
 
           <label>Años de vida máximo:</label>
           <input
-            name="life_span.max"
-            value={created.life_span.max}
+            name="life_spanMax"
+            value={created.life_spanMax}
             onChange={handleChange}
           />
         </div>
-        
+          {errors.life_span && <p>{errors.life_span}</p>}
+
         <label>Temperamentos:</label>
         <ul className={styles.lista}>
           {temps.map((temp) => (
@@ -130,6 +132,7 @@ export default function Form() {
             </label>
           ))}
         </ul>
+        {errors.temperaments && <p>{errors.temperaments}</p>}
         <button>Agregar</button>
       </form>
     </div>

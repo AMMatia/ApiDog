@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { changePage } from "../../redux/actions";
+import styles from "./Pagination.module.css";
 
 export default function Pagination() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function Pagination() {
   const siguiente = currentPage + 1;
 
   return (
-    <div>
+    <div className={styles.pagination}>
       {masDe && (
         <>
           <button

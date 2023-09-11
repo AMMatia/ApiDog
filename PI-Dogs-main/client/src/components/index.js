@@ -2,6 +2,7 @@ import NavBar from "./NavBar/NavBar";
 import CardsContainer from "./CardsContainer/CardsContainer";
 import Pagination from "./Pagination/Pagination";
 import SearchBar from "./SearchBar/SearchBar";
-import FilterOrder from "./FilterOrder/Filter";
+import Filter from "./FilterOrder/Filter";
+import Order from './FilterOrder/Order'
 
-export { NavBar, CardsContainer, Pagination, SearchBar, FilterOrder };
+export { NavBar, CardsContainer, Pagination, SearchBar, Filter, Order };

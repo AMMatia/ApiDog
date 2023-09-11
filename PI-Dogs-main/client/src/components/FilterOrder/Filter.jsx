@@ -28,8 +28,8 @@ export default function Filter() {
     const selectedTempsString = selectedTemps.join(",");
 
     const dogsFiltered = dogs.filter((dog) => {
-      if (dog.temperament) {
-        const dogTemperaments = dog.temperament
+      if (dog.temperaments) {
+        const dogTemperaments = dog.temperaments
           .split(",")
           .map((temp) => temp.trim());
         const selectedTempsArray = selectedTempsString.split(",");
@@ -45,26 +45,26 @@ export default function Filter() {
   };
 
   return (
-    <div>
+    <div >
       <button onClick={toggleFilter}>
         {showFilter ? "Ocultar Filtro" : "Mostrar Filtro"}
       </button>
-
+      
       {showFilter && (
-        <div>
+        <div className={styles.filterContainer}>
           <label>Selecciona temperamentos:</label>
-          <ul className={styles.lista}>
-            {temps.map((temp, index) => (
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedTemps.includes(temp.name)}
-                  onChange={() => handleOptionToggle(temp.name)}
-                />
-                {temp.name}
-              </label>
-            ))}
-          </ul>
+          <div className={styles.lista}>
+  {temps.map((temp, index) => (
+    <label key={index} className={styles.label}>
+      <input
+        type="checkbox"
+        checked={selectedTemps.includes(temp.name)}
+        onChange={() => handleOptionToggle(temp.name)}
+      />
+      {temp.name}
+    </label>
+  ))}
+</div>
           <button onClick={handleFilter}>Aplicar</button>
           {selectedTemps.length > 0 && (
             <div>

@@ -12,7 +12,7 @@ const postRaceHandler = async (req, res) => {
       life_span,
       temperaments
     );
-    res.status(200).send("Se ha creado con exito pa");
+    res.status(200).json(newDog);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

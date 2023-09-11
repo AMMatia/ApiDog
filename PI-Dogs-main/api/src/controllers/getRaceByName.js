@@ -28,7 +28,7 @@ const getRaceByName = async (name) => {
     temperaments: dog.temperament,
   }));
 
-  const raceBd = await Dog.findAll({
+  const dataBd = await Dog.findAll({
     where: {
       name: {
         [Op.iLike]: `%${name}%`,
@@ -43,22 +43,26 @@ const getRaceByName = async (name) => {
     },
 
   })
-  const temperaments = raceBd.temperaments.map(temp => temp.name).join(', ');
-  return {
+  
+  const convertirTemperamentos = (temperaments) => {
+    if (temperaments) {
+      return temperaments.map((temp) => temp.name).join(", ");
+    }
+    return "";
+  };
+
+  const stringDataDb = dataBd.map((race) => ({
     id: race.id,
     image: race.image,
     name: race.name,
     height: race.height,
     weight: race.weight,
     life_span: race.life_span,
-    temperaments,
-  };
-  ;
-    
+    temperaments: convertirTemperamentos(race.temperaments),
+  }));
 
-  const combined = [...dataBd, ...dataApi];
-
-  if (combined.length) return combined;
+  const datos = [...stringDataDb, ...dataApi];
+  if(datos.length) return datos;
   else return "No se encontraron coincidencias";
 };
 

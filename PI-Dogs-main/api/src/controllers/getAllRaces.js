@@ -33,7 +33,7 @@ const getAllRaces = async () => {
       },
     },
   });
-  const normalizedDataDb = dataDb.map((dog) => ({
+  const stringDataDb = dataDb.map((dog) => ({
     id: dog.id,
     name: dog.name,
     height: dog.height,
@@ -45,7 +45,7 @@ const getAllRaces = async () => {
   }));
 
 
-  return [...normalizedDataDb, ...dataApi];
+  return [...stringDataDb, ...dataApi];
 };
 
 

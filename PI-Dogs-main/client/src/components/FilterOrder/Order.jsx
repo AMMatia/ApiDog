@@ -6,8 +6,8 @@ export default function Order() {
   const dispatch = useDispatch();
   const sortedDogs = [...dogs];
 
-  const handleOrder = (event) => {
-    const value = event.target.value;
+  const handleOrder = (value) => {
+    // const value = event.target.value;
     let comparer;
 
     const compareWeights = (weightA, weightB) => {
@@ -41,13 +41,26 @@ export default function Order() {
 
   return (
     <div>
-      <label>Ordenar por:</label>
-      <select onChange={handleOrder}>
-        <option value="a">A-Z</option>
-        <option value="b">Z-A</option>
-        <option value="c">Mayor peso</option>
-        <option value="d">Menor peso</option>
-      </select>
+      <h3>Ordenar por:</h3>
+      <div>
+        <label>Orden alfabético: </label>
+        <button onClick={() => handleOrder("a")} value="a">
+          A-Z
+        </button>
+        <button onClick={() => handleOrder("b")} value="b">
+          Z-A
+        </button>
+      </div>
+      <div>
+      <label>Peso: </label>
+        <button onClick={() => handleOrder("c")} value="c">
+          Mayor peso
+        </button>
+        <button onClick={() => handleOrder("d")} value="d">
+          Menor peso
+        </button>
+      </div>
     </div>
   );
+
 }

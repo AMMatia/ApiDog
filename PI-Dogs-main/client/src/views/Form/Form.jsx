@@ -29,16 +29,17 @@ export default function Form() {
     setErrors(validations({ ...created, [name]: value }));
   };
 
-  const handleOptionToggle = (temp) => {
+  const handleSelection = (temp) => {
     if (selectedTemps.includes(temp)) {
       setSelectedTemps(selectedTemps.filter((item) => item !== temp));
     } else {
       setSelectedTemps([...selectedTemps, temp]);
     }
     setCreated({ ...created, temperaments: selectedTemps });
+    setErrors(validations({...created, temperaments:selectedTemps}))
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = () => {
     const transformedCreated = {
       image: created.image,
       name: created.name,
@@ -49,7 +50,7 @@ export default function Form() {
     };
     dispatch(createDog(transformedCreated));
     dispatch(getDogs());
-    
+
   };
 
   useEffect(() => {
@@ -59,7 +60,6 @@ export default function Form() {
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={onSubmit}>
-
         <label>Imagen:</label>
         <input name="image" value={created.image} onChange={handleChange} />
         {errors.image && <p>{errors.image}</p>}
@@ -83,7 +83,7 @@ export default function Form() {
             onChange={handleChange}
           />
         </div>
-          {errors.height && <p>{errors.height}</p>}
+        {errors.height && <p>{errors.height}</p>}
 
         <div className={styles.minMax}>
           <label>Peso mínimo:</label>
@@ -100,7 +100,7 @@ export default function Form() {
             onChange={handleChange}
           />
         </div>
-          {errors.weight && <p>{errors.weight}</p>}
+        {errors.weight && <p>{errors.weight}</p>}
 
         <div>
           <label>Años de vida mínimos:</label>
@@ -117,7 +117,7 @@ export default function Form() {
             onChange={handleChange}
           />
         </div>
-          {errors.life_span && <p>{errors.life_span}</p>}
+        {errors.life_span && <p>{errors.life_span}</p>}
 
         <label>Temperamentos:</label>
         <ul className={styles.lista}>
@@ -126,14 +126,14 @@ export default function Form() {
               <input
                 type="checkbox"
                 checked={selectedTemps.includes(temp.id.toString())}
-                onChange={() => handleOptionToggle(temp.id.toString())}
+                onChange={() => handleSelection(temp.id.toString())}
               />
               {temp.name}
             </label>
           ))}
         </ul>
         {errors.temperaments && <p>{errors.temperaments}</p>}
-        <button>Agregar</button>
+        <button disabled={Object.keys(errors).length}>Agregar</button>
       </form>
     </div>
   );

@@ -16,33 +16,27 @@ export default function Pagination() {
   return (
     <div className={styles.pagination}>
       {masDe && (
-        <>
-          <button
-            onClick={() => {
-              dispatch(changePage(anterior));
-            }}
-            disabled={anterior === 0}
-          >
-            Anterior
-          </button>
-          <button disabled={anterior === 0}>{anterior}</button>
-        </>
+        <button
+          onClick={() => {
+            dispatch(changePage(anterior));
+          }}
+          disabled={anterior === 0}
+        >
+          Anterior
+        </button>
       )}
 
-      <button>{currentPage}</button>
+      <button>{currentPage}/{totalPages}</button>
 
       {masDe && (
-        <>
-          <button disabled={siguiente > totalPages}>{siguiente}</button>
-          <button
-            onClick={() => {
-              dispatch(changePage(siguiente));
-            }}
-            disabled={siguiente > totalPages}
-          >
-            Siguiente
-          </button>
-        </>
+        <button
+          onClick={() => {
+            dispatch(changePage(siguiente));
+          }}
+          disabled={siguiente > totalPages}
+        >
+          Siguiente
+        </button>
       )}
     </div>
   );

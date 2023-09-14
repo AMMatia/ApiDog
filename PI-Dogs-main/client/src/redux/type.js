@@ -3,7 +3,8 @@ const CHANGE_PAGE = "CHANGE_PAGE";
 const BY_NAME = "BY_NAME";
 const BY_ID = "BY_ID";
 const GET_TEMPS = "GET_TEMPS";
-const FILTER = "FILTER";
+const FILTER_TEMP = "FILTER_TEMP";
+const FILTER_ORIGIN = "FILTER_ORIGIN"
 const SORT_DOGS = "SORT_DOGS";
 const CREATE_DOG = "CREATE_DOG";
 
@@ -12,8 +13,9 @@ export {
   CHANGE_PAGE,
   BY_NAME,
   BY_ID,
-  FILTER,
+  FILTER_TEMP,
   GET_TEMPS,
   SORT_DOGS,
   CREATE_DOG,
+  FILTER_ORIGIN
 };

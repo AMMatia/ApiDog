@@ -1,49 +1,62 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { byName, changePage, getDogs } from "../../redux/actions";
+import { byName, changePage, filterOrigin, filterTemp, getDogs } from "../../redux/actions";
 import { useState } from "react";
-import styles from "./SearchBar.module.css"; 
+import styles from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const { dogs } = useSelector((state) => state);
   const [name, setName] = useState("");
+  const [searched, setSearched] = useState(false);
+  const { filtered } = useSelector((state) => state);
   const handleChange = (event) => setName(event.target.value);
-
-  const onSearch = async () => {
-    await dispatch(byName(name));
+  
+  const onSearch = () => {
+    dispatch(byName(name))
     dispatch(changePage(1));
+    setName("");
+    setSearched(true);
   };
+
   const onBack = () => {
-    dispatch(getDogs());
-    dispatch(changePage(1));
+    if (filtered.length) {
+      dispatch(filterTemp(filtered));
+      dispatch(filterOrigin(filtered));
+    } else {
+      dispatch(getDogs());
+      dispatch(changePage(1));
+    }
+    setSearched(false);
   };
 
   return (
     <div className={styles.container}>
       <input
         type="search"
-        className={styles["search-input"]} 
+        className={styles.searchInput}
         value={name}
         onChange={handleChange}
+        placeholder="Buscar raza..."
       />
       <button
-        className={styles.button} 
+        className={styles.button}
         onClick={() => {
           onSearch();
         }}
+        disabled={name.length < 3}
       >
         Buscar
       </button>
-      <button
-        className={styles.button} 
-        onClick={() => {
-          onBack();
-        }}
-      >
-        Volver
-      </button>
-
+      {searched && (
+        <button
+          className={styles.button}
+          onClick={() => {
+            onBack();
+          }}
+        >
+          Volver
+        </button>
+      )}
     </div>
   );
 }

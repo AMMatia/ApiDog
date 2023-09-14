@@ -1,53 +1,53 @@
 .cards{
-    border: 1px solid blue;
-    width: 20em;
-    height: 35em;
-    border-radius: 1em;
-    font-family: Arial, sans-serif;
-    font-size: 16px; 
+  border: 1px solid blue;
+  width: 20em;
+  height: 35em;
+  border-radius: 1em;
+  font-family: Arial, sans-serif;
+  font-size: 16px; 
 }
 
 
 .cards h1 {
-    font-size: 24px;
-    margin: 0;
-  }
-  
-  .cards h2 {
-    font-size: 18px;
-    margin: 5px 0;
-  }
+  font-size: 24px;
+  margin: 0;
+}
+
+.cards h2 {
+  font-size: 18px;
+  margin: 5px 0;
+}
 .cards img {
-    height: 20em;
-    width: 100%;
-    border-radius: 1em;
+  height: 20em;
+  width: 100%;
+  border-radius: 1em;
 }
 .centered-text {
-    text-align: center;
-  }
+  text-align: center;
+}
 
 .cardsDetails {
-    display: flex;
-    align-items: center;
-    gap: 5em;
-  }
-  
+  display: flex;
+  align-items: center;
+  gap: 5em;
+}
+
 .cardsDetails img {
-    max-width: 50em;
-    max-height: 50em;
-    margin-right: 20px;
-  }
-  
+  max-width: 50em;
+  max-height: 50em;
+  margin-right: 20px;
+}
+
 .cardsDetails div {
-    font-family: Arial, sans-serif; 
+  font-family: Arial, sans-serif; 
 }
-  
+
 .cardsDetails h1 {
-    font-size: 24px; 
-    margin: 0;
+  font-size: 24px; 
+  margin: 0;
 }
-  
+
 .cardsDetails h2 {
-    font-size: 18px; 
-    margin: 5px 0;
+  font-size: 18px; 
+  margin: 5px 0;
 }

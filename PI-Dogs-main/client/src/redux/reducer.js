@@ -4,16 +4,20 @@ import {
   BY_NAME,
   BY_ID,
   GET_TEMPS,
-  FILTER,
+  FILTER_TEMP,
+  FILTER_ORIGIN,
   SORT_DOGS,
   CREATE_DOG,
 } from "./type";
 
 const initialState = {
   dogs: [],
+  searched: "",
   currentPage: 1,
   details: [],
   temps: [],
+  filtered: [],
+  
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -35,8 +39,11 @@ const rootReducer = (state = initialState, action) => {
     case GET_TEMPS:
       return { ...state, temps: payload };
 
-    case FILTER:
-      return { ...state, dogs: payload };
+    case FILTER_TEMP:
+      return { ...state, dogs: payload, filtered: payload };
+
+    case FILTER_ORIGIN:
+      return { ...state, dogs: payload, filtered: payload };
 
     case SORT_DOGS:
       return { ...state, dogs: payload };

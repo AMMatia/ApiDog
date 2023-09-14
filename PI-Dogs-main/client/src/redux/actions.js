@@ -3,7 +3,8 @@ import {
   GET_DOGS,
   BY_NAME,
   BY_ID,
-  FILTER,
+  FILTER_TEMP,
+  FILTER_ORIGIN,
   GET_TEMPS,
   SORT_DOGS,
   CREATE_DOG,
@@ -37,10 +38,11 @@ const byName = (name) => {
       const { data } = await axios.get(
         `http://localhost:3001/dogs/name?name=${name}`
       );
-      return dispatch({
-        type: BY_NAME,
-        payload: data,
-      });
+        return dispatch({
+          type: BY_NAME,
+          payload: data,
+        });
+      
     } catch (error) {
       window.alert(error.message);
     }
@@ -77,13 +79,18 @@ const getTemps = () => {
   };
 };
 
-const filter = (dogsFiltered) => {
+const filterTemp = (dogsFiltered) => {
   return {
-    type: FILTER,
+    type: FILTER_TEMP,
     payload: dogsFiltered,
   };
 };
-
+const filterOrigin = (dogsFiltered) =>{
+  return{
+    type:FILTER_ORIGIN,
+    payload:dogsFiltered,
+  }
+}
 const sortDogs = (updated) => {
   return {
     type: SORT_DOGS,
@@ -111,7 +118,8 @@ export {
   byName,
   byId,
   getTemps,
-  filter,
+  filterTemp,
+  filterOrigin,
   sortDogs,
   createDog,
 };

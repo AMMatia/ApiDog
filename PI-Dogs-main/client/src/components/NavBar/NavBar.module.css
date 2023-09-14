@@ -1,5 +1,5 @@
 .nav button {
-    margin-right: 20px; /* Agrega espacio entre los botones */
+    margin-right: 20px;
     padding: 10px 15px;
     background-color: #007bff;
     color: #fff;
@@ -14,9 +14,9 @@
     background-color: #0056b3;
   }
   
-  /* Estilos para el contenedor de navegación */
+  
   .nav {
     justify-content: center;
     display: flex;
-    align-items: center; /* Centra verticalmente los botones */
+    align-items: center;
   }

@@ -41,15 +41,10 @@ const getRaceByName = async (name) => {
         attributes: [],
       },
     },
+  });
 
-  })
-  
-  const convertirTemperamentos = (temperaments) => {
-    if (temperaments) {
-      return temperaments.map((temp) => temp.name).join(", ");
-    }
-    return "";
-  };
+  const convertirTemperamentos = (temperaments) =>
+    temperaments.map((temp) => temp.name).join(", ");
 
   const stringDataDb = dataBd.map((race) => ({
     id: race.id,
@@ -62,8 +57,10 @@ const getRaceByName = async (name) => {
   }));
 
   const datos = [...stringDataDb, ...dataApi];
-  if(datos.length) return datos;
-  else return "No se encontraron coincidencias";
+  // if (!datos.length)
+  //   throw new Error("No se encontraron coincidencias. Verifique el nombre...");
+
+  return datos;
 };
 
 module.exports = getRaceByName;

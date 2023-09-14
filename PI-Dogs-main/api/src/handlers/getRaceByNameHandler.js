@@ -5,6 +5,7 @@ const getRaceByNameHandler = async (req,res) => {
     const { name } = req.query;
     
     try {
+        
         const dog = await getRaceByName(name)
         
         res.status(200).json(dog)

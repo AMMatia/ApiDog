@@ -48,9 +48,9 @@ export default function Form() {
       life_span: `${created.life_spanMin} - ${created.life_spanMax} years`,
       temperaments: created.temperaments,
     };
+    
     dispatch(createDog(transformedCreated));
     dispatch(getDogs());
-
   };
 
   useEffect(() => {

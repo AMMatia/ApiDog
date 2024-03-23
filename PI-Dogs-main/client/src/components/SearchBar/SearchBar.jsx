@@ -1,6 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { byName, changePage, filterOrigin, filterTemp, getDogs } from "../../redux/actions";
+import {
+  byName,
+  changePage,
+  filterOrigin,
+  filterTemp,
+  getDogs,
+} from "../../redux/actions";
 import { useState } from "react";
 import styles from "./SearchBar.module.css";
 
@@ -8,14 +14,18 @@ export default function SearchBar() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [searched, setSearched] = useState(false);
-  const { filtered } = useSelector((state) => state);
+  const [buscados,setBuscados] = useState([])
+  const { filtered, dogs } = useSelector((state) => state);
   const handleChange = (event) => setName(event.target.value);
-  
+
   const onSearch = () => {
-    dispatch(byName(name))
+    setBuscados(dispatch(byName(name)))
+    if (!dogs.length) window.alert("No se han encontrado coincidencias");
     dispatch(changePage(1));
     setName("");
     setSearched(true);
+
+
   };
 
   const onBack = () => {

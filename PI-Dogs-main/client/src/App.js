@@ -1,12 +1,13 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Home, Form, Landing, Detail } from "./views";
 import { NavBar } from "./components";
+import styles from './App.module.css'
 
 function App() {
   const location = useLocation();
 
   return (
-    <div className="App">
+    <div>
       {location.pathname !== "/" && <NavBar />}
 
       <Routes>

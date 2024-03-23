@@ -38,6 +38,7 @@ const byName = (name) => {
       const { data } = await axios.get(
         `http://localhost:3001/dogs/name?name=${name}`
       );
+      
         return dispatch({
           type: BY_NAME,
           payload: data,
@@ -103,6 +104,7 @@ const createDog = (newDog) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(endpoint, newDog);
+      window.alert('Se ha creado con éxito')
       return dispatch({
         type: CREATE_DOG,
         payload: data,
